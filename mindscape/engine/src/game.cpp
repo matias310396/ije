@@ -2,7 +2,7 @@
 
 using namespace engine;
 
-Game* Game::instance = nullptr;
+Game* Game::instance = NULL;
 
 void throw_error(const char* function){
   printf("Something's wrong in %s\n", function);
