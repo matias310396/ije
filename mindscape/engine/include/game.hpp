@@ -14,9 +14,10 @@ namespace engine{
       std::pair<int,int> window_dimensions;
       SDL_Window* window;
       SDL_Renderer* renderer;
-      Image* image_1;
       Text* text_1;
       Audio* loop_song;
+      Image* images[3];
+
 
       Game(){};
       ~Game(){};
