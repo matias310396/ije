@@ -113,14 +113,9 @@ void Game::run(){
   loop_song = new Audio("../assets/Sound/loop1-1.mp3","music");
   images[1] = new Image(renderer);
   images[2] = new Image(renderer);
-  info inf;
 
   int right_cont = 0, left_cont = 0;
 
-  inf.x = 0;
-  inf.y = 0;
-  inf.width = 108;
-  inf.height = 140;
   std::pair<int,int> pos; pos.first =240;pos.second = 350;
 
 
