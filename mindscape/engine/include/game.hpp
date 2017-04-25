@@ -3,6 +3,7 @@
 #include "SDL2basics.hpp"
 #include <string>
 #include "../include/image.hpp"
+#include "../include/text.hpp"
 
 namespace engine{
 
@@ -13,11 +14,15 @@ namespace engine{
       SDL_Window* window;
       SDL_Renderer* renderer;
       Image* image_1;
+      Text* text_1;
 
       Game(){};
       ~Game(){};
 
       static Game& get_instance();
+      inline SDL_Renderer * canvas(){
+        return renderer;
+      }
       void run();
       void game_init();
       void close();

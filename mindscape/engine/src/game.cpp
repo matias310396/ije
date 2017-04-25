@@ -47,12 +47,18 @@ bool Game::load_media(){
     success_on_load = false;
   }
 
+  if(!text_1->load()){
+     printf("Failed to load media at assets/Fonts/font.ttf \n");
+     success_on_load = false;
+  }
+
   return success_on_load;
 }
 
 void Game::close(){
   //TODO add steps to deallocate all rendered textures
   image_1->free();
+  text_1->free();
 
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
@@ -66,6 +72,7 @@ void Game::close(){
 void Game::run(){
   game_init();
   image_1 = new Image(renderer);
+  text_1 = new Text("MindScape", "../../assets/Fonts/font.ttf", 38);
 
   if(load_media()){
     bool quit_event = false;
@@ -83,6 +90,7 @@ void Game::run(){
       SDL_RenderClear(renderer);
 
       image_1->render(0,0);
+      text_1->draw(50,50);
 
       SDL_RenderPresent(renderer);
     }
