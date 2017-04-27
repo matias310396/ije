@@ -1,12 +1,13 @@
 #include "../include/text.hpp"
 #include "game.hpp"
 #include <string>
+#include <iostream>
 
 using namespace engine;
 
-bool Text::load(){
+bool Text::load(std::string path){
 
-    text_font = TTF_OpenFont(text_font_path.c_str(), text_font_size);
+    text_font = TTF_OpenFont(path.c_str(), text_font_size);
 
     SDL_Color color  = {text_color.r, text_color.g,
                                   text_color.b, text_color.a};
@@ -27,10 +28,18 @@ bool Text::load(){
     }
 
     if(surface == NULL){
+        printf("\nThe text surface cannot be NULL\n");
         return false;
     }
 
+    text_texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+    if(!text_texture){
+        printf("\nError in the text_texture :%s\n", SDL_GetError());
+    }
+
     if(text_texture == NULL){
+        printf("\n The text_texture cannot be NULL\n");
         return false;
     }
 
@@ -38,7 +47,7 @@ bool Text::load(){
     text_heigth = surface->h;
 
     SDL_FreeSurface(surface);
-
+    return true;
 }
 
 void Text::free(){
@@ -61,6 +70,7 @@ void Text::draw(int posX, int posY){
         text_heigth
     };
 
-    SDL_RenderCopy(Game::instance->canvas(), text_texture, NULL, &renderQuad);
+    SDL_RenderCopy(renderer, text_texture, NULL, &renderQuad);
+
 
 }

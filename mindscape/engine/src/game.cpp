@@ -26,9 +26,13 @@ void Game::game_init(){
     throw_error("IMG_Init");
   }
 
+  if(TTF_Init() == -1)
+  {
+    throw_error("TTF_Init");
+  }
+
   window = SDL_CreateWindow(game_name.c_str(),SDL_WINDOWPOS_UNDEFINED,
-                            SDL_WINDOWPOS_UNDEFINED,window_dimensions.first,
-                            window_dimensions.second,SDL_WINDOW_SHOWN);
+                            SDL_WINDOWPOS_UNDEFINED,1280,960,SDL_WINDOW_SHOWN);
   if(!window){
     throw_error("SDL_CreateWindow");
   }
@@ -40,15 +44,16 @@ void Game::game_init(){
 
 bool Game::load_media(){
   bool success_on_load = true;
-  std::string path = "../assets/images/image1.png";
+  std::string path = "../assets/images/image2.jpg";
+  std::string text_path = "../assets/Fonts/FFF_Tusj.ttf";
 
   if(!image_1->load(path.c_str())){
     printf("Failed to load media at %s\n",path.c_str());
     success_on_load = false;
   }
 
-  if(!text_1->load()){
-     printf("Failed to load media at assets/Fonts/font.ttf \n");
+  if(!text_1->load(text_path)){
+     printf("Failed to load media at assets/Fonts/FFF_Tusj.ttf \n");
      success_on_load = false;
   }
 
@@ -72,7 +77,9 @@ void Game::close(){
 void Game::run(){
   game_init();
   image_1 = new Image(renderer);
-  text_1 = new Text("MindScape", "../../assets/Fonts/font.ttf", 38);
+  std::string path_font = "../assets/Fonts/FFF_Tusj.ttf";
+  text_1 = new Text("MindScape", path_font, 120,renderer);
+
 
   if(load_media()){
     bool quit_event = false;
@@ -90,7 +97,7 @@ void Game::run(){
       SDL_RenderClear(renderer);
 
       image_1->render(0,0);
-      text_1->draw(50,50);
+      text_1->draw(350,050);
 
       SDL_RenderPresent(renderer);
     }
