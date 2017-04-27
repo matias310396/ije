@@ -31,8 +31,13 @@ void Game::game_init(){
     throw_error("TTF_Init");
   }
 
+  if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 512 ) < 0 )
+  {
+    printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+  }
+
   window = SDL_CreateWindow(game_name.c_str(),SDL_WINDOWPOS_UNDEFINED,
-                            SDL_WINDOWPOS_UNDEFINED,1280,960,SDL_WINDOW_SHOWN);
+                            SDL_WINDOWPOS_UNDEFINED,window_dimensions.first,window_dimensions.second,SDL_WINDOW_SHOWN);
   if(!window){
     throw_error("SDL_CreateWindow");
   }
@@ -46,6 +51,7 @@ bool Game::load_media(){
   bool success_on_load = true;
   std::string path = "../assets/images/image2.jpg";
   std::string text_path = "../assets/Fonts/FFF_Tusj.ttf";
+  //std::string audio_path = "../assets/Sound/loop1-1.mp3";
 
   if(!image_1->load(path.c_str())){
     printf("Failed to load media at %s\n",path.c_str());
@@ -53,8 +59,13 @@ bool Game::load_media(){
   }
 
   if(!text_1->load(text_path)){
-     printf("Failed to load media at assets/Fonts/FFF_Tusj.ttf \n");
+     printf("Failed to load media at %s\n",text_path.c_str());
      success_on_load = false;
+  }
+
+  if(!loop_song->load()){
+    printf("Failed to load media the loop song\n");
+    success_on_load = false;
   }
 
   return success_on_load;
@@ -64,6 +75,7 @@ void Game::close(){
   //TODO add steps to deallocate all rendered textures
   image_1->free();
   text_1->free();
+  loop_song->free();
 
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
@@ -80,19 +92,19 @@ void Game::run(){
   std::string path_font = "../assets/Fonts/FFF_Tusj.ttf";
   text_1 = new Text("MindScape", path_font, 120,renderer);
 
+  loop_song = new Audio("../assets/Sound/loop1-1.mp3","music");
 
   if(load_media()){
     bool quit_event = false;
 
     SDL_Event e;
-
+    loop_song->play();
     while(!quit_event){
       while(SDL_PollEvent( &e ) != 0){
         if(e.type == SDL_QUIT){
           quit_event = true;
         }
       }
-
       SDL_SetRenderDrawColor(renderer,0xFF, 0xFF, 0xFF, 0xFF);
       SDL_RenderClear(renderer);
 

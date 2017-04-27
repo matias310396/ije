@@ -4,6 +4,7 @@
 #include <string>
 #include "../include/image.hpp"
 #include "../include/text.hpp"
+#include "../include/audio.hpp"
 
 namespace engine{
 
@@ -15,6 +16,7 @@ namespace engine{
       SDL_Renderer* renderer;
       Image* image_1;
       Text* text_1;
+      Audio* loop_song;
 
       Game(){};
       ~Game(){};
