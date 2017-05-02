@@ -108,7 +108,7 @@ void Game::close(){
 void Game::run(){
   game_init();
   std::string path_font = "../assets/Fonts/FFF_Tusj.ttf";
-  text_1 = new Text("MindScape", path_font, 120,renderer);
+  text_1 = new Text("MindScape", path_font, 32,renderer);
 
   loop_song = new Audio("../assets/Sound/loop1-1.mp3","music");
   images[1] = new Image(renderer);
@@ -141,8 +141,6 @@ void Game::run(){
       SDL_SetRenderDrawColor(renderer,0xFF, 0xFF, 0xFF, 0xFF);
       SDL_RenderClear(renderer);
 
-      text_1->draw(350,050);
-
       const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
       if( currentKeyStates[ SDL_SCANCODE_LEFT ] ){
 
@@ -174,6 +172,7 @@ void Game::run(){
       SDL_RenderClear(renderer);
       images[2]->render(0,0,rt_2);
       images[1]->render(pos.first,pos.second,rt);
+      text_1->draw(100,100);
 
       SDL_RenderPresent(renderer);
     }
