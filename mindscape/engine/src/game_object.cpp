@@ -13,7 +13,6 @@ void GameObject::add_component(std::string type, Component* component){
 }
 
 bool GameObject::load(){
-  printf("ENTREI NO LOAD\n");
   for(auto image : images){
       image->load();
   }

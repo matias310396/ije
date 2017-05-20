@@ -13,34 +13,66 @@ using namespace engine;
 
 Level * main_menu(Game game){
 
-    //Higth, Weigths, Positions
-     std::pair<int, int> bg_dimensions(1280,960);
-     std::pair<int, int> bg_position(0,0);
-     std::pair<int, int> title_position(350,050);
-    //
-    // //Components
-    // Image* bg_menu = new Image(game.renderer, "../assets/images/menu_screen.jpg", bg_position, true, bg_dimensions, bg_dimensions, bg_position);
-    // Text* title_menu = new Text("MindScape", "../assets/fonts/font.ttf", 120, game.renderer);
-    // Audio* music = new Audio("../assets/audios/loop1-1.mp3", Audio::audio_type::music);
-    //
-    // //Game Objects
-    // GameObject* background = new GameObject("background_menu", bg_position);
-    // GameObject* audio_loop = new GameObject("audio_loop", bg_position);
-    // GameObject* title = new GameObject("title_menu", title_position);
-    //
-    // //Constituting game objects
-    // background->add_component("bg_image", bg_menu);
-    // audio_loop-> add_component("audio", music);
-    // title-> add_component("title_menu", title_menu);
-    //
-    // Level* main_menu = new Level();
-    //
-    // main_menu->add_object("title_menu", title);
-    // main_menu->add_object("bg_menu", background);
-    // main_menu->add_object("audio_loop", audio_loop);
-    //
+     Level* main_menu = new Level();
+
+      Image* background = new Image(game.renderer, "../assets/images/menu_screen.jpg", std::make_pair(0,0), true, std::make_pair(1024,576), std::make_pair(1024,576), std::make_pair(0,0));
+      GameObject* menu_background = new GameObject("menu_background", std::make_pair(0,0));
+      menu_background->add_component("menu_background", background);
+
+      Text* title = new Text("MindScape", "../assets/fonts/FFF_Tusj.ttf", 90, game.renderer);
+      GameObject* game_title = new GameObject("game_title", std::make_pair(280, 30));
+      game_title->add_component("game_title", title);
+
+      Text* text_start = new Text("Start", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+      GameObject* start = new GameObject("start", std::make_pair(450, 275));
+      start->add_component("start", text_start);
+
+      Text* text_instructions= new Text("Instructions", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+      GameObject* instructions = new GameObject("instructions", std::make_pair(450, 310));
+      instructions->add_component("instructions", text_instructions);
+
+      Text* text_credits= new Text("Credits", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+      GameObject* credits = new GameObject("credits", std::make_pair(450, 345));
+      credits->add_component("credits", text_credits);
+
+      Text* text_exit = new Text("Exit", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+      GameObject* exit = new GameObject("exit", std::make_pair(450, 380));
+      exit ->add_component("exit", text_exit);
+
+      Text* sel = new Text(">", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+      GameObject* select = new GameObject("select", std::make_pair(425, 275));
+      select->add_component("select", sel);
+
+      Audio* music = new Audio("../assets/audios/loop1-1.mp3", Audio::audio_type::music);
+      GameObject * menu_loop =  new GameObject("menu_loop", std::make_pair(0,0));
+      menu_loop->add_component("menu_loop", music);
+
+
+      main_menu->add_object("game_title", game_title);
+      main_menu->activate_game_object("game_title");
+
+      main_menu->add_object("select", select);
+      main_menu->activate_game_object("select");
+
+      main_menu->add_object("start", start);
+      main_menu->activate_game_object("start");
+
+      main_menu->add_object("instructions", instructions);
+      main_menu->activate_game_object("instructions");
+
+      main_menu->add_object("credits", credits);
+      main_menu->activate_game_object("credits");
+
+      main_menu->add_object("exit", exit);
+      main_menu->activate_game_object("exit");
+
+      main_menu->add_object("menu_background", menu_background);
+      main_menu->activate_game_object("menu_background");
+
+      main_menu->add_object("menu_loop", menu_loop);
+      main_menu->activate_game_object("menu_loop");
+
        return main_menu;
-    //
 }
 
 int main(int,char**){
@@ -48,30 +80,11 @@ int main(int,char**){
   game.set_information(globals::game_name,globals::window_size);
   game.game_init();
 
-  std::pair<int, int> place (0, 0);
-  std::pair<int, int> anotherplace (0, 0);
-  //std::pair<int, int> whfirstimage (576, 1024);
-  //std::pair<int, int> whsecondimage (108, 140);
-  Image* images1 = new Image(game.renderer, "../assets/images/scott.png", place, true, std::make_pair(108, 140), std::make_pair(108, 140), anotherplace);
-  Image* images2 = new Image(game.renderer, "../assets/images/menu_screen.jpg", place, true, std::make_pair(1024, 576), std::make_pair(1024, 576), anotherplace);
-  GameObject* boy = new GameObject("boy", place);
-  GameObject* background = new GameObject("background", anotherplace);
-  boy->add_component("image", images1);
-  background->add_component("image", images2);
-
-
-  Level* level1 = new Level();
-  // menu = main_menu(game);
-
-  level1->add_object("boy", boy);
-  level1->add_object("background", background);
-  level1->activate_game_object("boy");level1->activate_game_object("background");
-  game.add_scene("first level", level1);
-
   Level* menu;
   menu = main_menu(game);
+  game.add_scene("menu inicial", menu);
 
-  game.change_scene(level1);
+  game.change_scene(menu);
   game.run();
 
   return 0;
