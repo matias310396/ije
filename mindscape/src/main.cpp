@@ -11,16 +11,16 @@
 
 using namespace engine;
 
-// Level * main_menu(Game game){
+Level * main_menu(Game game){
 
     //Higth, Weigths, Positions
-    // std::pair<int, int> bg_dimensions(1280,960);
-    // std::pair<int, int> bg_position(0,0);
-    // std::pair<int, int> title_position(350,050);
+     std::pair<int, int> bg_dimensions(1280,960);
+     std::pair<int, int> bg_position(0,0);
+     std::pair<int, int> title_position(350,050);
     //
     // //Components
-    // Image* bg_menu = new Image(game.renderer, "../assets/images/menu_screen.jpg", bg_position, true, bg_dimensions);
-    // Text* title_menu = new Text("MindScape", "../assets/fonts/FFF_Tusj.ttf", 120, game.renderer);
+    // Image* bg_menu = new Image(game.renderer, "../assets/images/menu_screen.jpg", bg_position, true, bg_dimensions, bg_dimensions, bg_position);
+    // Text* title_menu = new Text("MindScape", "../assets/fonts/font.ttf", 120, game.renderer);
     // Audio* music = new Audio("../assets/audios/loop1-1.mp3", Audio::audio_type::music);
     //
     // //Game Objects
@@ -39,9 +39,9 @@ using namespace engine;
     // main_menu->add_object("bg_menu", background);
     // main_menu->add_object("audio_loop", audio_loop);
     //
-    // return main_menu;
+       return main_menu;
     //
-// }
+}
 
 int main(int,char**){
   Game& game = Game::get_instance();
@@ -53,7 +53,7 @@ int main(int,char**){
   //std::pair<int, int> whfirstimage (576, 1024);
   //std::pair<int, int> whsecondimage (108, 140);
   Image* images1 = new Image(game.renderer, "../assets/images/scott.png", place, true, std::make_pair(108, 140), std::make_pair(108, 140), anotherplace);
-  Image* images2 = new Image(game.renderer, "../assets/images/background.png", place, true, std::make_pair(576, 1024), std::make_pair(576, 1024), anotherplace);
+  Image* images2 = new Image(game.renderer, "../assets/images/menu_screen.jpg", place, true, std::make_pair(1024, 576), std::make_pair(1024, 576), anotherplace);
   GameObject* boy = new GameObject("boy", place);
   GameObject* background = new GameObject("background", anotherplace);
   boy->add_component("image", images1);
@@ -68,8 +68,8 @@ int main(int,char**){
   level1->activate_game_object("boy");level1->activate_game_object("background");
   game.add_scene("first level", level1);
 
-  // Level* menu = new Level();
-  // menu = main_menu(game);
+  Level* menu;
+  menu = main_menu(game);
 
   game.change_scene(level1);
   game.run();

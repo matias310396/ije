@@ -10,7 +10,7 @@ namespace engine{
 
     class Text : public Component{
 
-    private:
+    public:
 
         std::string text_for_view;
         std::string text_font_path;
@@ -19,12 +19,13 @@ namespace engine{
         Color text_background_color;
         int text_weigth;
         int text_heigth;
+        bool text_high_quality;
 
         SDL_Texture * text_texture;
         TTF_Font * text_font;
         SDL_Renderer* renderer;
 
-    public:
+
 
         Text(std::string text,
                 std::string font_path,
@@ -36,8 +37,7 @@ namespace engine{
             : text_for_view(text), text_font_path(font_path),text_font_size(font_size),
               renderer(p_renderer), text_color(t_color), text_background_color(t_bg_color),
               text_texture(NULL), text_font(NULL),
-              text_weigth(0), text_heigth(0) {    printf("\nError in the text_texture :%s\n", SDL_GetError());
-}
+              text_weigth(0), text_heigth(0) {    /*printf("\nError in the text_texture :%s\n", SDL_GetError();*/}
 
         ~Text(){}
 
@@ -49,8 +49,8 @@ namespace engine{
         void draw(int posX, int posxY);
 
 
-        //inline void enable_high_quality() {text_high_quality = true}
-        //inline void disable_high_quality() {text_high_quality = false}
+        inline void enable_high_quality() {text_high_quality = true;}
+        inline void disable_high_quality() {text_high_quality = false;}
 
     };
 
