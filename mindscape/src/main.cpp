@@ -23,19 +23,19 @@ Level * main_menu(Game game){
       GameObject* game_title = new GameObject("game_title", std::make_pair(280, 30));
       game_title->add_component("game_title", title);
 
-      Text* text_start = new Text("Start", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+      Text* text_start = new Text("Iniciar", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
       GameObject* start = new GameObject("start", std::make_pair(450, 275));
       start->add_component("start", text_start);
 
-      Text* text_instructions= new Text("Instructions", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+      Text* text_instructions= new Text("Ajuda", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
       GameObject* instructions = new GameObject("instructions", std::make_pair(450, 310));
       instructions->add_component("instructions", text_instructions);
 
-      Text* text_credits= new Text("Credits", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+      Text* text_credits= new Text("Creditos", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
       GameObject* credits = new GameObject("credits", std::make_pair(450, 345));
       credits->add_component("credits", text_credits);
 
-      Text* text_exit = new Text("Exit", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
+      Text* text_exit = new Text("Sair", "../assets/fonts/FFF_Tusj.ttf", 35, game.renderer);
       GameObject* exit = new GameObject("exit", std::make_pair(450, 380));
       exit ->add_component("exit", text_exit);
 
